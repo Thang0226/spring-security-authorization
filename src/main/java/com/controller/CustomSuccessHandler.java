@@ -23,7 +23,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
                           HttpServletResponse response,
                           Authentication authentication)
             throws IOException {
-        String targetUrl = determineTargetUrl(authentication);
+        String targetUrl = determineTargetUrl(authentication);  // khi admin vao trang cua user cung goi method nay thay vi 403?
 
         if (response.isCommitted()) {
             System.out.println("Can't redirect");
@@ -56,7 +56,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             // thì điều hướng đến /home
             url = "/home";
         } else {
-            // Nếu tài khoản đăng nhập không có quyền truy cập
+            // Nếu tài khoản đăng nhập không có quyền truy cập nào, hoac co loi authorization
             // sẽ điều hướng tới /accessDenied
             url = "/accessDenied";
         }

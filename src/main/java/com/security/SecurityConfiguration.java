@@ -16,7 +16,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("admin").password("{noop}12345").roles("ADMIN")
                 .and()
-                .withUser("dba").password("{noop}12345").roles("ADMIN","DBA");
+                .withUser("dba").password("{noop}12345").roles("ADMIN","DBA")
+                .and()
+                .withUser("stranger").password("{noop}12345").roles();
     }
 
     @Override
@@ -24,7 +26,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeHttpRequests()
                 .requestMatchers("/", "/home").hasRole("USER")
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/dba/**").hasAnyRole("ADMIN", "DBA")
+                .requestMatchers("/dba/**").hasRole("DBA")
                 .and()
                 .formLogin().successHandler(new CustomSuccessHandler())
                 .usernameParameter("ssoId").passwordParameter("password")
